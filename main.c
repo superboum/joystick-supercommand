@@ -29,7 +29,6 @@ void watch(int i) {
   SDL_bool done = SDL_FALSE;
   SDL_Event event;
   while(!done) {
-    sleep(1);
     int trigger = 0;
     while (SDL_PollEvent(&event)) {
       switch (event.type) {

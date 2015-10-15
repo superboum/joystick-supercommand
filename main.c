@@ -19,17 +19,26 @@ void list() {
   }
 }
 
+void launch_command() {
+  printf("Hello :p ");
+}
+
 void watch(int i) {
   SDL_Joystick *joystick = SDL_JoystickOpen(i);
   SDL_bool done = SDL_FALSE;
   SDL_Event event;
   while(!done) {
     sleep(1);
+    int trigger = 0;
     while (SDL_PollEvent(&event)) {
       switch (event.type) {
         case SDL_JOYBUTTONDOWN:
           printf("Joystick %d button %d down\n",
             event.jbutton.which, event.jbutton.button);
+          if (event.jbutton.button == BUTTON_PLAYER_1 
+              || event.jbutton.button == BUTTON_PLAYER_2 
+              || event.jbutton.button == BUTTON_CREDIT)
+            trigger++;
           break;
         case SDL_JOYBUTTONUP:
           printf("Joystick %d button %d up\n",
@@ -41,6 +50,10 @@ void watch(int i) {
         default:
           break;
       }
+    }
+
+    if (trigger >= 3) {
+      launch_command();
     }
   }
 }

@@ -15,19 +15,22 @@ void list() {
   int i;
   for(i=0;i<SDL_NumJoysticks();i++) {
     SDL_Joystick *joystick = SDL_JoystickOpen(i);
-    printf("\t[id: %d] %s\n", i, SDL_JoystickName(joystick));
+    printf("\t[id: %d] %s || Has %d buttons\n", i, SDL_JoystickName(joystick), SDL_JoystickNumButtons(joystick));
   }
 }
 
 void watch(int i) {
   SDL_Joystick *joystick = SDL_JoystickOpen(i);
+  int num_button = SDL_JoystickNumButtons(joystick);
   while(1) {
     sleep(1);
-    int bp1 = SDL_JoystickGetButton(joystick, BUTTON_PLAYER_1);
-    int bp2 = SDL_JoystickGetButton(joystick, BUTTON_PLAYER_2);
-    int credit = SDL_JoystickGetButton(joystick, BUTTON_CREDIT);
+    int cur_button = 0;
+    for (; cur_button < num_button; cur_button++) {
+      int state = SDL_JoystickGetButton(joystick, cur_button);
+      printf("State of %d is %d",cur_button, state);
+    }
 
-    printf("Checking button for controller %d\n1P: %d, 2P: %d, CRED: %d\n----\n", i, bp1, bp2, credit);
+    /*printf("Checking button for controller %d\n1P: %d, 2P: %d, CRED: %d\n----\n", i, bp1, bp2, credit);*/
   }
 }
 

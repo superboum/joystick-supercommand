@@ -21,7 +21,7 @@ void list() {
 
 void launch_command() {
   printf("EVENT TRIGGERED\n");
-  system("killall -9 mame");
+  system("killall -9 emulationstation mame");
 }
 
 void watch(int i) {

@@ -12,7 +12,8 @@
 void list() {
   printf("Detected %d joysticks\n\nList: \n", SDL_NumJoysticks());
 
-  for(int i=0;i<SDL_NumJoysticks();i++) {
+  int i;
+  for(i=0;i<SDL_NumJoysticks();i++) {
     SDL_Joystick *joystick = SDL_JoystickOpen(i);
     printf("\t[id: %d] %s\n", i, SDL_JoystickName(joystick));
   }

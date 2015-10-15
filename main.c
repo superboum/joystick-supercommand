@@ -20,7 +20,8 @@ void list() {
 }
 
 void launch_command() {
-  printf("Hello :p ");
+  printf("EVENT TRIGGERED\n");
+  system("killall -9 mame");
 }
 
 void watch(int i) {

@@ -21,16 +21,27 @@ void list() {
 
 void watch(int i) {
   SDL_Joystick *joystick = SDL_JoystickOpen(i);
-  int num_button = SDL_JoystickNumButtons(joystick);
-  while(1) {
+  SDL_bool done = SDL_FALSE;
+  SDL_Event event;
+  while(!done) {
     sleep(1);
-    int cur_button = 0;
-    for (; cur_button < num_button; cur_button++) {
-      int state = SDL_JoystickGetButton(joystick, cur_button);
-      printf("State of %d is %d\n",cur_button, state);
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
+        case SDL_JOYBUTTONDOWN:
+          printf("Joystick %d button %d down\n",
+            event.jbutton.which, event.jbutton.button);
+          break;
+        case SDL_JOYBUTTONUP:
+          printf("Joystick %d button %d up\n",
+            event.jbutton.which, event.jbutton.button);
+          break;
+        case SDL_QUIT:
+          done = SDL_TRUE;
+          break;
+        default:
+          break;
+      }
     }
-    printf("----------------------\n");
-    /*printf("Checking button for controller %d\n1P: %d, 2P: %d, CRED: %d\n----\n", i, bp1, bp2, credit);*/
   }
 }
 

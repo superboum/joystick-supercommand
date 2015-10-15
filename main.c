@@ -27,9 +27,9 @@ void watch(int i) {
     int cur_button = 0;
     for (; cur_button < num_button; cur_button++) {
       int state = SDL_JoystickGetButton(joystick, cur_button);
-      printf("State of %d is %d",cur_button, state);
+      printf("State of %d is %d\n",cur_button, state);
     }
-
+    printf("----------------------\n");
     /*printf("Checking button for controller %d\n1P: %d, 2P: %d, CRED: %d\n----\n", i, bp1, bp2, credit);*/
   }
 }

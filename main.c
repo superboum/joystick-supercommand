@@ -29,16 +29,16 @@ void watch(int i) {
   SDL_bool done = SDL_FALSE;
   SDL_Event event;
   while(!done) {
-    int trigger = 0;
+    sleep(1);
+    int trigger[3] = {0,0,0};
     while (SDL_PollEvent(&event)) {
       switch (event.type) {
         case SDL_JOYBUTTONDOWN:
           printf("Joystick %d button %d down\n",
             event.jbutton.which, event.jbutton.button);
-          if (event.jbutton.button == BUTTON_PLAYER_1 
-              || event.jbutton.button == BUTTON_PLAYER_2 
-              || event.jbutton.button == BUTTON_CREDIT)
-            trigger++;
+          if (event.jbutton.button == BUTTON_PLAYER_1) trigger[0] = 1;
+          if (event.jbutton.button == BUTTON_PLAYER_2) trigger[1] = 1;
+          if (event.jbutton.button == BUTTON_CREDIT)   trigger[2] = 1;
           break;
         case SDL_JOYBUTTONUP:
           printf("Joystick %d button %d up\n",
@@ -52,7 +52,7 @@ void watch(int i) {
       }
     }
 
-    if (trigger >= 3) {
+    if (trigger[0] && trigger[1] && trigger[2]) {
       launch_command();
     }
   }

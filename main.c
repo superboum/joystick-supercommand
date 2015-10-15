@@ -21,16 +21,15 @@ void list() {
 
 void launch_command() {
   printf("EVENT TRIGGERED\n");
-  system("killall -9 emulationstation mame");
+  system("killall -9 emulationstation mame SkullGirls.x86_64-pc-linux-gnu");
 }
 
 void watch(int i) {
   SDL_Joystick *joystick = SDL_JoystickOpen(i);
   SDL_bool done = SDL_FALSE;
   SDL_Event event;
+  int trigger[3] = {0,0,0};
   while(!done) {
-    sleep(1);
-    int trigger[3] = {0,0,0};
     while (SDL_PollEvent(&event)) {
       switch (event.type) {
         case SDL_JOYBUTTONDOWN:
@@ -43,6 +42,9 @@ void watch(int i) {
         case SDL_JOYBUTTONUP:
           printf("Joystick %d button %d up\n",
             event.jbutton.which, event.jbutton.button);
+          if (event.jbutton.button == BUTTON_PLAYER_1) trigger[0] = 0;
+          if (event.jbutton.button == BUTTON_PLAYER_2) trigger[1] = 0;
+          if (event.jbutton.button == BUTTON_CREDIT)   trigger[2] = 0;
           break;
         case SDL_QUIT:
           done = SDL_TRUE;

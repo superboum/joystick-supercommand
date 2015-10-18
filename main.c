@@ -21,7 +21,7 @@ void list() {
 
 void launch_command() {
   printf("EVENT TRIGGERED\n");
-  system("killall -9 emulationstation mame SkullGirls.x86_64-pc-linux-gnu");
+  system("killall -9 emulationstation mame SkullGirls.x86_64-pc-linux-gnu LethalLeague");
 }
 
 void watch(int i) {
@@ -30,6 +30,7 @@ void watch(int i) {
   SDL_Event event;
   int trigger[3] = {0,0,0};
   while(!done) {
+    usleep(200);
     while (SDL_PollEvent(&event)) {
       switch (event.type) {
         case SDL_JOYBUTTONDOWN:
